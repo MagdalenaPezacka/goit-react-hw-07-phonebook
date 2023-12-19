@@ -13,7 +13,7 @@ const handleRejected = (state, action) => {
 };
 
 const contactSlice = createSlice({
-  name: 'phone',
+  name: 'contacts',
   initialState: contactsInitialState,
 extraReducers: builder => {
     builder
@@ -28,8 +28,8 @@ extraReducers: builder => {
       .addCase(addContact.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
-        // state.items.push(action.payload);
-        state.items = [action.payload, ...state.items];
+        state.items.push(action.payload);
+        // state.items = [action.payload, ...state.items];
       })
       .addCase(addContact.rejected, handleRejected)
       .addCase(deleteContact.pending, handlePending)
@@ -38,7 +38,7 @@ extraReducers: builder => {
         state.error = null;
         // state.items = state.items.filter(item => item.id !== action.payload);
         const index = state.items.findIndex(
-          task => task.id === action.payload.id
+          contact => contact.id === action.payload.id
         );
         state.items.splice(index, 1);
       })
@@ -60,3 +60,4 @@ extraReducers: builder => {
 
 export const contactReducer = contactSlice.reducer;
 // export const { addContact, deleteContact } = contactSlice.actions;
+

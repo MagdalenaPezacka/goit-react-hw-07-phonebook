@@ -12,9 +12,9 @@ export const fetchContacts = createAsyncThunk("contacts/fetchAll", async (_, thu
 
 export const addContact = createAsyncThunk(
   "contacts/addContact",
-  async (contact, thunkAPI) => {
+  async ({id,name,phone}, thunkAPI) => {
     try {
-      const response = await axios.post("/contacts", { contact });
+      const response = await axios.post("/contacts", { id,name,phone });
       return response.data;
     } catch (e) {
       return thunkAPI.rejectWithValue(e.message);
@@ -34,16 +34,3 @@ export const deleteContact = createAsyncThunk(
   }
 );
 
-// export const toggleCompleted = createAsyncThunk(
-//   "tasks/toggleCompleted",
-//   async (task, thunkAPI) => {
-//     try {
-//       const response = await axios.put(`/tasks/${task.id}`, {
-//         completed: !task.completed,
-//       });
-//       return response.data;
-//     } catch (e) {
-//       return thunkAPI.rejectWithValue(e.message);
-//     }
-//   }
-// );
